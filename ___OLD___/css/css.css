@@ -1,0 +1,26 @@
+body{
+margin: 0;
+}
+.header{
+height: 90px;
+}
+.content{
+height: 100%;
+}
+.footer{
+height: 100px;
+position: absolute;
+margin-top: -100px;
+left: 0;
+bottom: 0;
+}
+.rasporka{height: 100px; clear: both}
+
+.colort{
+color: #0000bf;
+text-align: center;
+font-size: 25px;
+font-weight: bolder;
+}
+
+.header, .content, .footer{padding: 0; width: 100%;}
