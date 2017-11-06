@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<span style="">Добро пожаловать!</span>
+<span style="">Добро пожаловать, <a href=".." title="Профиль"><b><ins>Говноед</ins></b></a>!</span>
 
 </body>
 </html>
