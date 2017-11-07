@@ -9,7 +9,7 @@
 </head>
 <body>
 	<span style="">Добро пожаловать, <a href=".." title="Профиль"><b><ins>Говноед</ins></b></a>!</span><br>
-	<canvas id="farmling_viewport"></canvas>
+	<canvas id="farmlingViewport"></canvas>
 
 	<script src="core/js/canvas.js"></script>
 </body>

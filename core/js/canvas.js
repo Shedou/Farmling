@@ -1,7 +1,5 @@
 
-var canvas = document.getElementById("farmling_viewport");
-//canvas.setAttribute('width', bodySize.width * 0.8);
-//canvas.setAttribute('height', bodySize.width * 0.65);
+var canvas = document.getElementById("farmlingViewport");
 canvas.setAttribute('width', 1280);
 canvas.setAttribute('height', 720);
 var context = canvas.getContext("2d");
