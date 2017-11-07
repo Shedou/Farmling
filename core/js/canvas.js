@@ -5,7 +5,6 @@ canvas.setAttribute('height', 720);
 var context = canvas.getContext("2d");
 context.fillStyle = "rgb(0, 162, 232)";
 context.fillRect(415, 315, 150, 120);
-
 context.beginPath();
 context.fillStyle = "rgb(0, 55, 55)";
 context.arc(423, 93, 70, 0, 2 * Math.PI, true);
