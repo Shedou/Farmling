@@ -11,6 +11,8 @@
 	<span style="">Добро пожаловать, <a href=".." title="Профиль"><b><ins>Говноед</ins></b></a>!</span><br>
 	<canvas id="farmlingViewport"></canvas>
 
-	<script src="core/js/canvas.js"></script>
+	<img id="Player" src="game/img/player.png" style="display:none;" />
+
+	<script src="game/js/canvas.js"></script>
 </body>
 </html>
