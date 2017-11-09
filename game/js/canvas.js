@@ -21,7 +21,9 @@ var context = canvas.getContext("2d");
 	context.fillStyle = "rgba(0, 55, 55, 0.2)";
 	context.fillText("Hello To Farmling!", 540, 600);
 
-	imgPlayer= new Image();
+	let imgPlayer= new Image();
 	imgPlayer.src= "game/img/player.png";
 
+	imgPlayer.onload = function(){
 	context.drawImage(imgPlayer, 20, 80, 256, 512);
+	};
