@@ -19,8 +19,17 @@ let context = canvas.getContext("2d");
 
 
 	let imgPlayer = new Image();
+	let imgPantsBlue = new Image();
+	let imgSkirtBlue = new Image();
+	let imgHatBlue = new Image();
 	imgPlayer.src = "game/img/player.png";
+	imgPantsBlue.src = "game/img/pants/pantsBlue.png";
+	imgSkirtBlue.src = "game/img/skirt/skirtBlue.png";
+	imgHatBlue.src = "game/img/hat/hatBlue.png";
 
 	imgPlayer.onload = function(){
 	context.drawImage(imgPlayer, 32, 104, 256, 512);
-	};
+		context.drawImage(imgPantsBlue, 32, 380, 256, 206);
+			context.drawImage(imgSkirtBlue, 32, 134, 256, 324);
+				context.drawImage(imgHatBlue, -42, -94, 384, 384);
+		};

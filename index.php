@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width">
 </head>
 <body>
-	<span style="">Добро пожаловать, <a href=".." title="Профиль"><b><ins>Говноед</ins></b></a>!</span><br>
+	<span style="">Добро пожаловать, <a href=".." title="Профиль"><b><ins>User</ins></b></a>!</span><br>
 	<canvas id="farmlingViewport"></canvas>
 
 	<script src="game/js/canvas.js"></script>
