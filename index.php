@@ -35,7 +35,7 @@ $skin = 0;
 	<canvas id="glFarm">dsgf</canvas>
 
 
-	<script src="game/js/canvas.js"></script>
 	<script src="game/js/matrix.js"></script>
+	<script src="game/js/canvas.js"></script>
 </body>
 </html>
