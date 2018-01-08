@@ -29,7 +29,7 @@ $skin = 0;
 	<link rel="stylesheet" href="core/css/css.css">
 	<meta name="viewport" content="width=device-width">
 </head>
-<body>
+<body onResize="shed_resize()">
 	<div class="s_head"></div>
 	<span style="">Добро пожаловать, <a href=".." title="Профиль"><b><ins>User</ins></b></a>!</span><br>
 	<canvas id="glFarm">dsgf</canvas>

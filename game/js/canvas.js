@@ -105,16 +105,26 @@ let canvasHeight = window.innerHeight - 30;
  */
 let cubeRotation = 0.0;
 
+	let canvas = document.querySelector('#glFarm');
+	let gl = canvas.getContext('webgl');
+	canvas.width = canvasWidth;
+	canvas.height = canvasHeight;
+
+function shed_resize() {
+	canvasWidth = window.innerWidth - 30;
+	canvasHeight = window.innerHeight - 30;
+	canvas.width = canvasWidth;
+	canvas.height = canvasHeight;
+
+}
+
+
 main();
 
 //
 // Start here
 //
 function main() {
-	let canvas = document.querySelector('#glFarm');
-	const gl = canvas.getContext('webgl');
-	canvas.width = canvasWidth;
-	canvas.height = canvasHeight;
 
 	if (!gl) {
 		alert('Unable to initialize WebGL. Your browser or machine may not support it.');
@@ -122,20 +132,20 @@ function main() {
 	}
 
 	// Vertex shader program
-	const vsSource = `attribute vec4 aVertexPosition; attribute vec2 aTextureCoord; uniform mat4 uModelViewMatrix; uniform mat4 uProjectionMatrix; varying highp vec2 vTextureCoord; void main(void) {gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition; vTextureCoord = aTextureCoord;}`;
+	let vsSource = `attribute vec4 aVertexPosition; attribute vec2 aTextureCoord; uniform mat4 uModelViewMatrix; uniform mat4 uProjectionMatrix; varying highp vec2 vTextureCoord; void main(void) {gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition; vTextureCoord = aTextureCoord;}`;
 
 	// Fragment shader program
-	const fsSource = `varying highp vec2 vTextureCoord; uniform sampler2D uSampler; void main(void) {gl_FragColor = texture2D(uSampler, vTextureCoord);}`;
-	const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
-	const programInfo = {	program: shaderProgram, attribLocations: { vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'), textureCoord: gl.getAttribLocation(shaderProgram, 'aTextureCoord')},
+	let fsSource = `varying highp vec2 vTextureCoord; uniform sampler2D uSampler; void main(void) {gl_FragColor = texture2D(uSampler, vTextureCoord);}`;
+	let shaderProgram = initShaderProgram(gl, vsSource, fsSource);
+	let programInfo = {	program: shaderProgram, attribLocations: { vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'), textureCoord: gl.getAttribLocation(shaderProgram, 'aTextureCoord')},
 							uniformLocations: {projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'), modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'), uSampler: gl.getUniformLocation(shaderProgram, 'uSampler')},};
 
-	const buffers = initBuffers(gl);
-	const texture = loadTexture(gl, '/game/img/player.png');
+	let buffers = initBuffers(gl);
+	let texture = loadTexture(gl, '/game/img/player.png');
 	let then = 0;
 	function render(now) {
-		now *= 0.005;
-		const deltaTime = now - then;
+		now *= 0.0005;
+		let deltaTime = now - then;
 		then = now;
 		drawScene(gl, programInfo, buffers, texture, deltaTime);
 		requestAnimationFrame(render);
@@ -144,9 +154,9 @@ function main() {
 }
 
 function initBuffers(gl) {
-	const positionBuffer = gl.createBuffer();
+	let positionBuffer = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-	const positions = [
+	let positions = [
 		//морда
 		-1.0, -1.0, 1.0,
 		1.0, -1.0, 1.0,
@@ -180,10 +190,10 @@ function initBuffers(gl) {
 	];
 
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
-	const textureCoordBuffer = gl.createBuffer();
+	let textureCoordBuffer = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, textureCoordBuffer);
 
-	const textureCoordinates = [
+	let textureCoordinates = [
 		//морда
 		0.0, 0.0,
 		1.0, 0.0,
@@ -219,10 +229,10 @@ function initBuffers(gl) {
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoordinates),
 		gl.STATIC_DRAW);
 
-	const indexBuffer = gl.createBuffer();
+	let indexBuffer = gl.createBuffer();
 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
 
-	const indices = [
+	let indices = [
 		0, 1, 2, 0, 2, 3,//морда
 		4, 5, 6, 4, 6, 7,//зад
 		8, 9, 10, 8, 10, 11,//верх
@@ -238,22 +248,22 @@ function initBuffers(gl) {
 }
 
 function loadTexture(gl, url) {
-	const texture = gl.createTexture();
+	let texture = gl.createTexture();
 	gl.bindTexture(gl.TEXTURE_2D, texture);
 
-	const level = 0;
-	const internalFormat = gl.RGBA;
-	const width = 1;
-	const height = 1;
-	const border = 0;
-	const srcFormat = gl.RGBA;
-	const srcType = gl.UNSIGNED_BYTE;
-	const pixel = new Uint8Array([0, 0, 255, 255]);
+	let level = 0;
+	let internalFormat = gl.RGBA;
+	let width = 1;
+	let height = 1;
+	let border = 0;
+	let srcFormat = gl.RGBA;
+	let srcType = gl.UNSIGNED_BYTE;
+	let pixel = new Uint8Array([0, 0, 255, 255]);
 	gl.texImage2D(gl.TEXTURE_2D, level, internalFormat,
 		width, height, border, srcFormat, srcType,
 		pixel);
 
-	const image = new Image();
+	let image = new Image();
 	image.onload = function () {
 		gl.bindTexture(gl.TEXTURE_2D, texture);
 		gl.texImage2D(gl.TEXTURE_2D, level, internalFormat,
@@ -283,62 +293,54 @@ function drawScene(gl, programInfo, buffers, texture, deltaTime) {
 
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-	const fieldOfView = 60 * Math.PI / 180;
-	const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
-	const zNear = 5.5;
-	const zFar = 7.5;
-	const projectionMatrix = mat4.create();
+	let fieldOfView = 60 * Math.PI / 180;
+	let aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
+	let zNear = 0.5;
+	let zFar = 9.5;
+	let projectionMatrix = mat4.create();
 
 	mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar);
-	const modelViewMatrix = mat4.create();
+	let modelViewMatrix = mat4.create();
 
-	mat4.translate(modelViewMatrix,
-		modelViewMatrix,
-		[-0.0, 0.0, -6.0]);
+	mat4.translate(modelViewMatrix, modelViewMatrix, [-0.0, 0.0, -6.0]);
 	mat4.rotate(modelViewMatrix, modelViewMatrix, cubeRotation, [0, 0, 1]);
 	mat4.rotate(modelViewMatrix, modelViewMatrix, cubeRotation * .7, [0, 1, 0]);
 
 	{
-		const numComponents = 3;
-		const type = gl.FLOAT;
-		const normalize = false;
-		const stride = 0;
-		const offset = 0;
+		let numComponents = 3;
+		let type = gl.FLOAT;
+		let normalize = false;
+		let stride = 0;
+		let offset = 0;
 		gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position);
-		gl.vertexAttribPointer(
-			programInfo.attribLocations.vertexPosition, numComponents, type, normalize, stride, offset);
-		gl.enableVertexAttribArray(
-			programInfo.attribLocations.vertexPosition);
+		gl.vertexAttribPointer(programInfo.attribLocations.vertexPosition, numComponents, type, normalize, stride, offset);
+		gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
 	}
 
 	{
-		const numComponents = 2;
-		const type = gl.FLOAT;
-		const normalize = false;
-		const stride = 0;
-		const offset = 0;
+		let numComponents = 2;
+		let type = gl.FLOAT;
+		let normalize = false;
+		let stride = 0;
+		let offset = 0;
 		gl.bindBuffer(gl.ARRAY_BUFFER, buffers.textureCoord);
-		gl.vertexAttribPointer(
-			programInfo.attribLocations.textureCoord, numComponents, type, normalize, stride, offset);
-		gl.enableVertexAttribArray(
-			programInfo.attribLocations.textureCoord);
+		gl.vertexAttribPointer(programInfo.attribLocations.textureCoord, numComponents, type, normalize, stride, offset);
+		gl.enableVertexAttribArray(programInfo.attribLocations.textureCoord);
 	}
 
 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices);
 	gl.useProgram(programInfo.program);
-	gl.uniformMatrix4fv(
-		programInfo.uniformLocations.projectionMatrix, false, projectionMatrix);
-	gl.uniformMatrix4fv(
-		programInfo.uniformLocations.modelViewMatrix, false, modelViewMatrix);
+	gl.uniformMatrix4fv(programInfo.uniformLocations.projectionMatrix, false, projectionMatrix);
+	gl.uniformMatrix4fv(programInfo.uniformLocations.modelViewMatrix, false, modelViewMatrix);
 
 	gl.activeTexture(gl.TEXTURE0);
 	gl.bindTexture(gl.TEXTURE_2D, texture);
 	gl.uniform1i(programInfo.uniformLocations.uSampler, 0);
 
 	{
-		const vertexCount = 36;
-		const type = gl.UNSIGNED_SHORT;
-		const offset = 0;
+		let vertexCount = 36;
+		let type = gl.UNSIGNED_SHORT;
+		let offset = 0;
 		gl.drawElements(gl.TRIANGLES, vertexCount, type, offset);
 	}
 
@@ -346,10 +348,10 @@ function drawScene(gl, programInfo, buffers, texture, deltaTime) {
 }
 
 function initShaderProgram(gl, vsSource, fsSource) {
-	const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
-	const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
+	let vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
+	let fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
 
-	const shaderProgram = gl.createProgram();
+	let shaderProgram = gl.createProgram();
 	gl.attachShader(shaderProgram, vertexShader);
 	gl.attachShader(shaderProgram, fragmentShader);
 	gl.linkProgram(shaderProgram);
@@ -362,7 +364,7 @@ function initShaderProgram(gl, vsSource, fsSource) {
 }
 
 function loadShader(gl, type, source) {
-	const shader = gl.createShader(type);
+	let shader = gl.createShader(type);
 
 	gl.shaderSource(shader, source);
 	gl.compileShader(shader);
