@@ -110,6 +110,7 @@ let cubeRotation = 0.0;
 	canvas.width = canvasWidth;
 	canvas.height = canvasHeight;
 
+//срабатывает при изменении размеров элемента BODY
 function shed_resize() {
 	canvasWidth = window.innerWidth - 30;
 	canvasHeight = window.innerHeight - 30;
@@ -121,15 +122,10 @@ function shed_resize() {
 
 main();
 
-//
-// Start here
-//
+
 function main() {
 
-	if (!gl) {
-		alert('Unable to initialize WebGL. Your browser or machine may not support it.');
-		return;
-	}
+	if (!gl) {alert('Ваше устройство или браузер не поддерживают WebGL.');return;}
 
 	// Vertex shader program
 	let vsSource = `attribute vec4 aVertexPosition; attribute vec2 aTextureCoord; uniform mat4 uModelViewMatrix; uniform mat4 uProjectionMatrix; varying highp vec2 vTextureCoord; void main(void) {gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition; vTextureCoord = aTextureCoord;}`;
