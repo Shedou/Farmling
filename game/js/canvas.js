@@ -1,6 +1,6 @@
 "use strict";
-let canvasWidth = window.innerWidth - 30;
-let canvasHeight = window.innerHeight - 30;
+let canvasWidth = (window.innerWidth / 2);
+let canvasHeight = (window.innerHeight / 2);
 /*
  let widh = window.innerWidth;
 
@@ -112,16 +112,27 @@ let cubeRotation = 0.0;
 
 //срабатывает при изменении размеров элемента BODY
 function shed_resize() {
-	canvasWidth = window.innerWidth - 30;
-	canvasHeight = window.innerHeight - 30;
+	canvasWidth = (window.innerWidth / 2);
+	canvasHeight = (window.innerHeight / 2);
 	canvas.width = canvasWidth;
 	canvas.height = canvasHeight;
 
 }
+let fps = 0;
+let tick = 0;
 
+let shed_ts = {
+	"x":0,
+	"y":0
+};
+function fps_shed() {
+	document.getElementById("x").innerHTML = fps;
+	fps = 0;
+}
 
 main();
 
+setInterval('fps_shed()', 1000);
 
 function main() {
 
@@ -140,9 +151,14 @@ function main() {
 	let texture = loadTexture(gl, '/game/img/player.png');
 	let then = 0;
 	function render(now) {
+		tick = tick + 1;
 		now *= 0.0005;
 		let deltaTime = now - then;
 		then = now;
+		shed_ts.x = shed_ts.x+1;
+		shed_ts.y = shed_ts.y+1;
+
+		document.getElementById("y").innerHTML = shed_ts.y;
 		drawScene(gl, programInfo, buffers, texture, deltaTime);
 		requestAnimationFrame(render);
 	}
@@ -286,7 +302,7 @@ function drawScene(gl, programInfo, buffers, texture, deltaTime) {
 	gl.clearDepth(1.0);
 	gl.enable(gl.DEPTH_TEST);
 	gl.depthFunc(gl.LEQUAL);
-
+	fps = fps + 1;
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
 	let fieldOfView = 60 * Math.PI / 180;

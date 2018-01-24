@@ -28,10 +28,11 @@ $skin = 0;
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" href="core/css/css.css">
 	<meta name="viewport" content="width=device-width">
+	<link rel="image_src" href="/banner.jpg" />
 </head>
 <body onResize="shed_resize()">
 	<div class="s_head"></div>
-	<span style="">Добро пожаловать, <a href=".." title="Профиль"><b><ins>User</ins></b></a>!</span><br>
+	<span style="">Добро пожаловать, <span id="x">cc</span> <span id="y">cc</span><a href=".." title="Профиль"><b><ins>User</ins></b></a>!</span><br>
 	<canvas id="glFarm">dsgf</canvas>
 
 
