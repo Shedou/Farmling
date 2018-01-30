@@ -133,7 +133,6 @@ const keyHandler = function () {
 		}
 	};
 	document.addEventListener('keydown', this.checker);
-
 	return this.keyPressedId;
 };
 

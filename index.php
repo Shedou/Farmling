@@ -32,9 +32,8 @@ $skin = 0;
 </head>
 <body onResize="shed_resize()">
 	<div class="s_head"></div>
-	<span>FPS: </span>  <span id="fps">cc</span>   <span> - Ticks: </span><span id="ticks">cc</span>  <span> - x: </span><span id="x">x</span>  <span> - y: </span><span id="y">y</span><br>
+	<span>FPS: </span>  <span id="fps">cc</span>   <span> - Ticks: </span><span id="ticks">cc</span>  <span> - x: </span><span id="x">x</span>  <span> - y: </span><span id="y">y</span> <br>
 	<canvas id="glFarm">dsgf</canvas>
-
 
 	<script src="game/js/matrix.js"></script>
 	<script src="game/js/canvas.js"></script>
