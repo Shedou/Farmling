@@ -103,36 +103,44 @@ let canvasHeight = (window.innerHeight / 2);
 
  }
  */
-let cubeRotation = 0.0;
-
-	let canvas = document.querySelector('#glFarm');
-	let gl = canvas.getContext('webgl');
-	canvas.width = canvasWidth;
-	canvas.height = canvasHeight;
-
-//срабатывает при изменении размеров элемента BODY
-function shed_resize() {
-	canvasWidth = (window.innerWidth / 2);
-	canvasHeight = (window.innerHeight / 2);
-	canvas.width = canvasWidth;
-	canvas.height = canvasHeight;
-
-}
-let fps = 0;
-let tick = 0;
+//=======================================
 
 let shed_ts = {
 	"x":0,
 	"y":0
 };
-function fps_shed() {
-	document.getElementById("x").innerHTML = fps;
-	fps = 0;
-}
+let fps = 0;
+let tick = 0;
+let cubeRotation = 0.0;
+	let canvas = document.querySelector('#glFarm');
+	let gl = canvas.getContext('webgl');
+	canvas.width = canvasWidth;
+	canvas.height = canvasHeight;
 
-main();
+//=======================================
+shed_resize(); //срабатывает при изменении размеров элемента BODY
+fps_shed(); // диагностическая инфа
+setInterval('fps_shed()', 1000); // обновление инфы
 
-setInterval('fps_shed()', 1000);
+const keyHandler = function () {
+	this.keyPressedId = null;
+	this.checker = (event) => {
+		if (event.keyCode) {
+			this.keyPressedId = event.keyCode;
+		}
+		if (event.which) {
+			this.keyPressedId = event.which;
+		}
+	};
+	document.addEventListener('keydown', this.checker);
+
+	return this.keyPressedId;
+};
+
+let shed_key = new keyHandler();
+
+
+main(); // НАЧАЛО
 
 function main() {
 
@@ -151,14 +159,23 @@ function main() {
 	let texture = loadTexture(gl, '/game/img/player.png');
 	let then = 0;
 	function render(now) {
+		document.getElementById("x").innerHTML = shed_ts.x;
+		document.getElementById("y").innerHTML = shed_ts.y;
+
+
+		if(shed_key.keyPressedId === 88){
+			shed_ts.x = shed_ts.x+1;
+		}
+		if(shed_key.keyPressedId=== 89) {
+			shed_ts.y = shed_ts.y + 1;
+		}
+
+
 		tick = tick + 1;
 		now *= 0.0005;
 		let deltaTime = now - then;
 		then = now;
-		shed_ts.x = shed_ts.x+1;
-		shed_ts.y = shed_ts.y+1;
 
-		document.getElementById("y").innerHTML = shed_ts.y;
 		drawScene(gl, programInfo, buffers, texture, deltaTime);
 		requestAnimationFrame(render);
 	}
@@ -388,4 +405,18 @@ function loadShader(gl, type, source) {
 	}
 
 	return shader;
+}
+
+function shed_resize() {
+	canvasWidth = (window.innerWidth / 2);
+	canvasHeight = (window.innerHeight / 2);
+	canvas.width = canvasWidth;
+	canvas.height = canvasHeight;
+}
+
+function fps_shed() {
+	document.getElementById("fps").innerHTML = fps;
+	document.getElementById("ticks").innerHTML = tick;
+
+	fps = 0;
 }

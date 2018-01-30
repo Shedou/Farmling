@@ -32,7 +32,7 @@ $skin = 0;
 </head>
 <body onResize="shed_resize()">
 	<div class="s_head"></div>
-	<span style="">Добро пожаловать, <span id="x">cc</span> <span id="y">cc</span><a href=".." title="Профиль"><b><ins>User</ins></b></a>!</span><br>
+	<span>FPS: </span>  <span id="fps">cc</span>   <span> - Ticks: </span><span id="ticks">cc</span>  <span> - x: </span><span id="x">x</span>  <span> - y: </span><span id="y">y</span><br>
 	<canvas id="glFarm">dsgf</canvas>
 
 
