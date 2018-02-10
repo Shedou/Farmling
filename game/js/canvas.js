@@ -119,8 +119,8 @@ let cubeRotation = 0.0;
 
 //=======================================
 shed_resize(); //срабатывает при изменении размеров элемента BODY
-fps_shed(); // диагностическая инфа
-setInterval('fps_shed()', 1000); // обновление инфы
+shed_fps(); // диагностическая инфа
+setInterval('shed_fps()', 1000); // обновление инфы
 
 const keyHandler = function () {
 	this.keyPressedId = null;
@@ -413,7 +413,7 @@ function shed_resize() {
 	canvas.height = canvasHeight;
 }
 
-function fps_shed() {
+function shed_fps() {
 	document.getElementById("fps").innerHTML = fps;
 	document.getElementById("ticks").innerHTML = tick;
 
